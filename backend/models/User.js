@@ -5,7 +5,11 @@ const UserSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    profileImageUrl: { type: String, default: null },
+    // profileImageUrl: { type: String, default: null },
+    profileImageUrl: {
+      imageUrl: { type: String },
+      public_id: { type: String },
+    },
     bio: { type: String, default: "" }, // optional short bio
     role: { type: String, enum: ["admin", "member"], default: "member" }, // Role-based access
   },

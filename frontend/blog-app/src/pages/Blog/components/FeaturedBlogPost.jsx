@@ -12,7 +12,8 @@ const FeaturedBlogPost = ({
 }) => {
 
   return (
-    <div className="grid grid-cols-12 bg-white shadow-lg shadow-gray-100 rounded-xl overflow-hidden cursor-pointer" 
+    <div className="grid grid-cols-12 bg-white shadow-lg shadow-gray-100 rounded-xl
+      overflow-hidden cursor-pointer" 
       onClick={onClick}
     >
       <div className="col-span-6">
@@ -36,7 +37,8 @@ const FeaturedBlogPost = ({
             {tags.slice(0, 3).map((tag, index) => (
               <span 
                 key={index} 
-                className="bg-sky-200/50 text-sky-800/80 text-xs font-medium px-3 py-0.5 rounded-full text-nowrap"
+                className="bg-sky-200/50 text-sky-800/80 text-xs font-medium px-3 py-0.5 
+                  rounded-full text-nowrap"
               >
                 # {tag}
               </span>

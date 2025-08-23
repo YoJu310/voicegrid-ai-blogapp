@@ -5,7 +5,11 @@ const BlogPostSchema = new mongoose.Schema(
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     content: { type: String, required: true }, // markdown
-    coverImageUrl: { type: String, default: null },
+    // coverImageUrl: { type: String, default: null },
+    coverImageUrl: {
+      imageUrl: { type: String },
+      public_id: { type: String },
+    },
     tags: [{ type: String }],
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     isDraft: { type: Boolean, default: false },

@@ -13,16 +13,18 @@ const RecentCommentsList = ({ comments }) => {
               className="flex gap-4 border-b border-gray-100 pb-4 last:border-none"
           >
             <img
-                src={comment.author?.profileImageUrl}
-                alt={comment.author?.name}
-                className="w-10 h-10 rounded-full object-cover"
+              // 
+              // src={comment.author?.profileImageUrl}
+              src={comment?.author?.profileImageUrl?.imageUrl}
+              alt={comment?.author?.name}
+              className="w-10 h-10 rounded-full object-cover"
             />
             <div className="flex-1">
               <div className="flex justify-between items-start">
                 <div>
                   <div className="flex items-center gap-1">
                     <p className="font-medium text-[13px] text-gray-500">
-                        @{comment.author?.name}
+                        @{comment?.author?.name}
                     </p>
                     <LuDot className="text-gray-500" />
 
@@ -37,12 +39,13 @@ const RecentCommentsList = ({ comments }) => {
               </div>
               <div className="mt-2 flex items-center gap-3">
                 <img
-                    src={comment.post?.coverImageUrl}
-                    alt={comment.post?.title}
+                    // src={comment.post?.coverImageUrl}
+                    src={comment?.post?.coverImageUrl?.imageUrl}
+                    alt={comment?.post?.title}
                     className="w-9 h-9 rounded-md object-cover"
                 />
                 <p className="text-[13px] text-gray-700 line-clamp-2">
-                    {comment.post?.title}
+                    {comment?.post?.title}
                 </p>
               </div>
             </div>                

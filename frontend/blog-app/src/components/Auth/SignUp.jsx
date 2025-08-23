@@ -26,7 +26,8 @@ const SignUp = ({setCurrentPage}) => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    let profileImageUrl = "";
+    // let profileImageUrl = "";
+    let profileImageUrl = null;
 
     if (!fullName) {
       setError("Please enter full name.");
@@ -50,7 +51,7 @@ const SignUp = ({setCurrentPage}) => {
        // Upload image if present
       if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imgUploadRes.imageUrl || "";
+        profileImageUrl = imgUploadRes || null;
       }
 
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {

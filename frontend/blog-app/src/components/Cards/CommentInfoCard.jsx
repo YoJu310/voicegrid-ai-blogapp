@@ -62,7 +62,8 @@ const CommentInfoCard = ({
     };
 
   return (
-    <div className={`bg-white p-3 rounded-lg cursor-pointer group ${isSubReply ? 'mb-1' : 'mb-4'}`}>
+    <div className={`bg-white p-3 rounded-lg cursor-pointer group
+      ${isSubReply ? 'mb-1' : 'mb-4'}`}>
       <div className="grid grid-cols-12 gap-3 ">
         <div className="col-span-12 md:col-span-8 order-2 md:order-1">
           <div className="flex items-start gap-3">
@@ -89,7 +90,9 @@ const CommentInfoCard = ({
                 {!isSubReply && (
                   <>
                     <button
-                      className="flex items-center gap-2 text-[13px] font-medium text-sky-950 bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white cursor-pointer "
+                      className="flex items-center gap-2 text-[13px] font-medium text-sky-950
+                        bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white 
+                        cursor-pointer "
                       onClick={() =>
                         setShowReplyForm((prevState) => !prevState)
                       }
@@ -97,7 +100,9 @@ const CommentInfoCard = ({
                       <LuReply /> Reply
                     </button>
                     <button
-                      className="flex items-center gap-1.5 text-[13px] font-medium text-sky-950 bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white cursor-pointer"
+                      className="flex items-center gap-1.5 text-[13px] font-medium text-sky-950
+                        bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white 
+                        cursor-pointer"
                       onClick={() =>
                         setShowSubReplies((prevState) => !prevState)
                       }
@@ -112,7 +117,9 @@ const CommentInfoCard = ({
                 )}
 
                 <button
-                  className="flex items-center gap-1.5 text-[13px] font-medium text-sky-950 bg-sky-50 px-4 py-0.5 rounded-full  hover:bg-rose-500 hover:text-white cursor-pointer"
+                  className="flex items-center gap-1.5 text-[13px] font-medium text-sky-950
+                   bg-sky-50 px-4 py-0.5 rounded-full  hover:bg-rose-500 hover:text-white
+                    cursor-pointer"
                   onClick={() => onDelete()}
                 >
                   <LuTrash2 /> Delete
@@ -125,7 +132,8 @@ const CommentInfoCard = ({
         {!isSubReply && (
           <div className="col-span-12 md:col-span-4 order-1 md:order-2 flex items-center gap-4">
             <img
-              src={post?.coverImageUrl}
+              // src={post?.coverImageUrl}
+              src={post?.coverImageUrl?.imageUrl}
               alt="post cover"
               className="w-16 h-10 rounded-lg object-cover"
             />
@@ -159,7 +167,8 @@ const CommentInfoCard = ({
           <div key={comment._id} className={`ml-5 ${index == 0 ? "mt-5" : ""}`}>
             <CommentInfoCard
               authorName={comment.author.name}
-              authorPhoto={comment.author.profileImageUrl}
+              // authorPhoto={comment.author.profileImageUrl}
+              authorPhoto={comment?.author?.profileImageUrl?.imageUrl}
               content={comment.content}
               post={comment.post}
               replies={comment.replies || []}

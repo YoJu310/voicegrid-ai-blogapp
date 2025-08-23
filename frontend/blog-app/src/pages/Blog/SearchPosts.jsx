@@ -52,7 +52,8 @@ const SearchPosts = () => {
               <BlogPostSummaryCard
                 key={item._id}
                 title={item.title}
-                coverImageUrl={item.coverImageUrl}
+                // coverImageUrl={item.coverImageUrl}
+                coverImageUrl={item?.coverImageUrl?.imageUrl}
                 description={item.content}
                 tags={item.tags}
                 updatedOn={
@@ -61,7 +62,8 @@ const SearchPosts = () => {
                     : "-"
                 }
                 authorName={item.author.name}
-                authProfileImg={item.author.profileImageUrl}
+                // authProfileImg={item.author.profileImageUrl}   
+                authProfileImg={item?.author?.profileImageUrl?.imageUrl}
                 onClick={ () => handleClick(item)}
               />
             ))}

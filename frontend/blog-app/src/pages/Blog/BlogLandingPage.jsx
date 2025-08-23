@@ -75,7 +75,8 @@ const BlogLandingPage = () => {
           {blogPostList.length > 0 && (
             <FeaturedBlogPost
               title={blogPostList[0].title}
-              coverImageUrl={blogPostList[0].coverImageUrl}
+              // coverImageUrl={blogPostList[0].coverImageUrl}
+              coverImageUrl={blogPostList[0]?.coverImageUrl?.imageUrl}
               description={blogPostList[0].content}
               tags={blogPostList[0].tags}
               updatedOn={
@@ -84,7 +85,8 @@ const BlogLandingPage = () => {
                   : "-"
               }
               authorName={blogPostList[0].author.name}
-              authProfileImg={blogPostList[0].author.profileImageUrl}
+              // authProfileImg={blogPostList[0].author.profileImageUrl}
+              authProfileImg={blogPostList[0]?.author?.profileImageUrl?.imageUrl}
               onClick={() => handleClick(blogPostList[0])}
             />
           )}
@@ -97,7 +99,8 @@ const BlogLandingPage = () => {
                   <BlogPostSummaryCard
                     key={item._id}
                     title={item.title}
-                    coverImageUrl={item.coverImageUrl}
+                    // coverImageUrl={item.coverImageUrl}
+                    coverImageUrl={item?.coverImageUrl?.imageUrl}
                     description={item.content}
                     tags={item.tags}
                     updatedOn={
@@ -106,7 +109,8 @@ const BlogLandingPage = () => {
                         : "-"
                     }
                     authorName={item.author.name}
-                    authProfileImg={item.author.profileImageUrl}
+                    // authProfileImg={item.author.profileImageUrl}
+                    authProfileImg={item?.author?.profileImageUrl?.imageUrl}
                     onClick={() => handleClick(item)}
                   />
                 ))}
@@ -115,7 +119,9 @@ const BlogLandingPage = () => {
           {page < totalPages && (
             <div className="flex items-center justify-center mt-5">
               <button
-                className="flex items-center gap-3 text-sm text-white font-medium bg-black px-7 py-2.5 mt-6 rounded-full text-nowrap hover:scale-105  transition-all duration-300 cursor-pointer"
+                className="flex items-center gap-3 text-sm text-white font-medium
+                  bg-black px-7 py-2.5 mt-6 rounded-full text-nowrap hover:scale-105  
+                  transition-all duration-300 cursor-pointer"
                 disabled={isLoading}
                 onClick={handleLoadMore}
               >

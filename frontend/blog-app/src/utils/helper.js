@@ -13,8 +13,6 @@ export const getInitials = (title) => {
 };
 
 export const validateEmail = (email) => {
-    // const regex = /^[\w\s@]+@[\w\s@]+\.[\w\s@]+$/;
-    // const regex = /^[\s@]+@[^\s@]+\.[^\s@]+$/;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     return regex.test(email);

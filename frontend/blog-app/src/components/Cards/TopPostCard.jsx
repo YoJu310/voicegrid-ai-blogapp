@@ -17,7 +17,8 @@ const TopPostCard = ({ title, coverImageUrl, views, likes, maxViews }) => {
 
             <div className="relative w-full h-1.5 bg-sky-100/60 rounded-full overflow-hidden mt-1">
                 <div
-                    className="h-full bg-linear-to-r from-sky-500 to-cyan-400 rounded-full tansition-all duration-300"
+                    className="h-full bg-linear-to-r from-sky-500 to-cyan-400 rounded-full
+                     tansition-all duration-300"
                     style={{ width: `${viewPercentage}% `}}
                 ></div>
             </div>

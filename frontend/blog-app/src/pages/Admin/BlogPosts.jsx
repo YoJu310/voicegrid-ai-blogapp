@@ -57,11 +57,16 @@ const BlogPosts = () => {
       ];
 
       setTabs(statusArray);
+      console.log("Fetched posts:", response.data.posts);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
+    console.log("blogPostList in getAllPosts in BlogPosts-", blogPostList);
+    
+
   };
 
   // delete blog post
@@ -76,7 +81,7 @@ const BlogPosts = () => {
       });
       getAllPosts();
     } catch (error) {
-      console.error("Error deleting blog post:", error);
+      console.error("Error deleting blog post:", error);
     }
   };
 
@@ -117,7 +122,8 @@ const BlogPosts = () => {
             <BlogPostSummaryCard
               key={post._id}
               title={post.title}
-              imgUrl={post.coverImageUrl}
+              // imgUrl={post.coverImageUrl}
+              imgUrl={post?.coverImageUrl?.imageUrl}
               updatedOn={
                 post.updatedAt
                   ? moment(post.updatedAt).format("Do MMM YYYY")
@@ -137,7 +143,8 @@ const BlogPosts = () => {
           <div className="flex items-center justify-center mb-8">
             <button
               // className="flex items-center gap-3 text-sm text-white font-medium bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-800 rounded-lg px-5 py-2.5 text-center mr-2 mb-2"
-              className="flex items-center gap-3 text-sm text-white font-medium bg-black px-7 py-2.5 rounded-full text-nowrap hover:scale-105 transition-all cursor-pointer"
+              className="flex items-center gap-3 text-sm text-white font-medium
+               bg-black px-7 py-2.5 rounded-full text-nowrap hover:scale-105 transition-all cursor-pointer"
               disabled={isLoading}
               onClick={handleLoadMore}
             >

@@ -87,7 +87,8 @@ const CommentInfoCard = ({
                 {!isSubReply && (
                   <>
                     <button
-                      className="flex items-center gap-2 text-[13px] font-medium text-sky-600 bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white cursor-pointer"
+                      className="flex items-center gap-2 text-[13px] font-medium text-sky-600
+                        bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white cursor-pointer"
                       onClick={() => {
                         if (!user) {
                           console.log("USER", user);
@@ -100,7 +101,9 @@ const CommentInfoCard = ({
                       <LuReply /> Reply
                     </button>
                     <button
-                      className="flex items-center gap-1.5 text-[13px] font-medium text-sky-600 bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white cursor-pointer"
+                      className="flex items-center gap-1.5 text-[13px] font-medium text-sky-600
+                        bg-sky-50 px-4 py-0.5 rounded-full hover:bg-sky-500 hover:text-white 
+                        cursor-pointer"
                       onClick={() => 
                         setShowSubReplies((prevState) => !prevState)
                       }
@@ -140,7 +143,8 @@ const CommentInfoCard = ({
             <CommentInfoCard
               commentId={comment._id}
               authorName={comment.author.name}
-              authorPhoto={comment.author.profileImageUrl}
+              // authorPhoto={comment.author.profileImageUrl}
+              authorPhoto={comment.author.profileImageUrl.imageUrl}
               content={comment.content}
               post={comment.post}
               replies={comment.replies || []}

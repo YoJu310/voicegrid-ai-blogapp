@@ -1,24 +1,26 @@
 const BlogPost = require("../models/BlogPost");
+const { cloudinary } = require("../middlewares/uploadMiddleware");
 const mongoose = require("mongoose");
+
 
 // @desc    Create a new blog post
 // @route   POST /api/posts
 // @access  Private (Admin only)
 const createPost = async (req, res) => {
     try {
-        const { title, content, coverImageUrl, tags, isDraft, generatedByAI } = req.body;
+        const { title, content, tags, isDraft, generatedByAI, coverImageUrl } = req.body;
 
         const slug = title
             .toLowerCase()
             .replace(/ /g, "_")
             // .replace(/[^a-zA-Z0-9_]+/g, "")
-            .replace(/[^\w-]+/g);
+            .replace(/[^\w-]+/g , "");
 
         const newPost = new BlogPost({
             title,
             slug,
             content,
-            coverImageUrl,
+            coverImageUrl, 
             tags,
             author: req.user._id,
             isDraft,
@@ -56,6 +58,24 @@ const updatePost = async (req, res) => {
                 .replace(/[^\w-]+/g, "");
         }
 
+        // ---- COVER IMAGE HANDLING ----
+        if (updatedData.hasOwnProperty("coverImageUrl")) {
+        // Case 1: User removed the image (null)
+            if (updatedData.coverImageUrl === null) {
+                if (post.coverImageUrl?.public_id) {
+                await cloudinary.uploader.destroy(post?.coverImageUrl?.public_id);
+                }
+            }
+        // Case 2: User uploaded new image (different public_id)
+            else if (
+                post.coverImageUrl?.public_id &&
+                post.coverImageUrl.public_id !== updatedData.coverImageUrl.public_id
+            ) {
+                await cloudinary.uploader.destroy(post.coverImageUrl.public_id);
+            }
+        // Case 3: Unchanged image → do nothing
+        }
+
         const updatedPost = await BlogPost.findByIdAndUpdate(
             req.params.id,
             updatedData,
@@ -75,6 +95,11 @@ const deletePost = async (req, res) => {
     try {
         const post = await BlogPost.findById(req.params.id);
         if (!post) return res.status(404).json({ message: "Post not found" });
+
+        // to delete cloudinary image
+        if (post?.coverImageUrl?.public_id) {
+            await cloudinary.uploader.destroy(post.coverImageUrl.public_id);
+        }
 
         await post.deleteOne();
         res.json({ message: "Post deleted" });

@@ -39,7 +39,8 @@ const TrendingPostsSection = () => {
           <PostCard
             key={item._id}
             title={item.title}
-            coverImageUrl={item.coverImageUrl}
+            // coverImageUrl={item.coverImageUrl}
+            coverImageUrl={item?.coverImageUrl?.imageUrl}
             tags={item.tags}
             onClick={() => handleClick(item)}
           />

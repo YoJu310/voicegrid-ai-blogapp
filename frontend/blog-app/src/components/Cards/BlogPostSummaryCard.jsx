@@ -31,11 +31,13 @@ const BlogPostSummaryCard = ({
           <div className='h-6 w-[1px] bg-gray-300/70' />
 
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1.5 text-xs text-sky-700 font-medium bg-sky-50 px-2.5 py-1 rounded">
+            <span className="flex items-center gap-1.5 text-xs text-sky-700 font-medium
+             bg-sky-50 px-2.5 py-1 rounded">
               <LuEye className="text-[16px] text-sky-500" /> {views}
             </span>
 
-            <span className="flex items-center gap-1.5 text-xs text-sky-700 font-medium bg-sky-50 px-2.5 py-1 rounded">
+            <span className="flex items-center gap-1.5 text-xs text-sky-700 font-medium
+             bg-sky-50 px-2.5 py-1 rounded">
               <LuHeart className="text-[16px] text-sky-500" /> {likes}
             </span>
           </div>
@@ -46,8 +48,8 @@ const BlogPostSummaryCard = ({
             {tags.map((tag, index) => (
               <div
                 key={`tag_${index}`}
-                className="text-xs text-cyan-700 font-medium bg-cyan-100/50 px-2.5 py-1 rounded"
-              >
+                className="text-xs text-cyan-700 font-medium bg-cyan-100/50 
+                px-2.5 py-1 rounded">
                 {tag}
               </div>
              ))}
@@ -65,8 +67,10 @@ const BlogPostSummaryCard = ({
         <LuTrash2 /> <span className="hidden md:block">Delete</span>
       </button> */}
       <button
-        className="flex md:hidden items-center gap-2 text-xs text-rose-500 font-medium bg-rose-50 px-3 py-1 rounded border border-rose-100 hover:border-rose-200 cursor-pointer
-                  md:group-hover:flex md:items-center md:gap-2 md:px-3 md:py-1 md:bg-rose-50 md:border md:border-rose-100"
+        className="flex md:hidden items-center gap-2 text-xs text-rose-500 font-medium
+         bg-rose-50 px-3 py-1 rounded border border-rose-100 hover:border-rose-200 
+         cursor-pointer md:group-hover:flex md:items-center md:gap-2 md:px-3 md:py-1
+          md:bg-rose-50 md:border md:border-rose-100"
         onClick={(e) => {
           e.stopPropagation();
           onDelete();

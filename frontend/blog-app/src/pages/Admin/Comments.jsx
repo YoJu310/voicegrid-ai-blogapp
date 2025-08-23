@@ -47,10 +47,12 @@ const Comments = () => {
   };
 
   console.log(comments); //testing purpose
+
   useEffect(() => {
     getAllComments();
     return () => {};
   }, []);
+
   return (
     <DashboardLayout activeMenu='Comments'>
       <div className="w-auto sm:max-w-[900px] mx-auto">
@@ -61,7 +63,8 @@ const Comments = () => {
             key={comment._id}
             commentId={comment._id || null}
             authorName={comment.author.name}
-            authorPhoto={comment.author.profileImageUrl}
+            // authorPhoto={comment.author.profileImageUrl}
+            authorPhoto={comment?.author?.profileImageUrl?.imageUrl}
             content={comment.content}
             updatedOn={
               comment.updatedAt

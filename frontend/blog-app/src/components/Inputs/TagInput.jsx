@@ -23,11 +23,13 @@ const TagInput = ({ tags, setTags }) => {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 items-center border border-gray-300 rounded-md p-2 min-h-[48px] mt-3 ">
+    <div className="flex flex-wrap gap-2 items-center border border-gray-300 
+      rounded-md p-2 min-h-[48px] mt-3 ">
       {tags.map((tag, index) => (
         <div
           key={index}
-          className="flex items-center bg-sky-100/70 text-sky-700 px-3 py-1 rounded text-sm font-medium"
+          className="flex items-center bg-sky-100/70 text-sky-700 px-3 py-1 
+            rounded text-sm font-medium"
         >
           {tag}
           <button

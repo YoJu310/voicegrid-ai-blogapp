@@ -31,10 +31,10 @@ const BlogPostEditor = (({ isEdit }) => {
       id: "",
       title: "",
       content: "",
-      coverImageUrl: "",
-      coverPreview: "",
-      tags: "",
-      isDraft: "",
+      coverImageUrl: null, 
+      coverPreview: null,    // null at start (not string)
+      tags: [],
+      isDraft: false,        // better to keep boolean  
       generatedByAI: false,
   })
 
@@ -62,7 +62,7 @@ const BlogPostEditor = (({ isEdit }) => {
       const aiResponse = await axiosInstance.post(
         API_PATHS.AI.GENERATE_BLOG_POST_IDEAS,
         {
-          topics: "React JS, Next JS, Node JS, React UI Components, MongoDB, TailwindCSS , Artificial Intelligence, Blockchain, CryptoCurrency",
+          topics: "React JS, Next JS, Node JS, MySql , React UI Components, MongoDB, TailwindCSS , Artificial Intelligence, Blockchain, CryptoCurrency",
         }
       );
       const generatedIdeas = aiResponse.data;
@@ -79,7 +79,7 @@ const BlogPostEditor = (({ isEdit }) => {
 
   // Handle Blog Post Publish
   const handlePublish = async (isDraft) => {
-     let coverImageUrl = "";
+    let coverImageUrl = null;
 
       if (!postData.title.trim()) {
         setError("Please enter a title.");
@@ -110,11 +110,23 @@ const BlogPostEditor = (({ isEdit }) => {
       setError("");
       try {
         // Check if a new image was uploaded (File type)
+
         if (postData.coverImageUrl instanceof File) {
           const imgUploadRes = await uploadImage(postData.coverImageUrl);
-          coverImageUrl = imgUploadRes.imageUrl || "";
-        } else {
-          coverImageUrl = postData.coverPreview;
+
+          console.log(" upload image in handlePublish in blogPostEditor :", imgUploadRes);
+          // coverImageUrl = imgUploadRes.imageUrl || "";
+          coverImageUrl = imgUploadRes || null ;
+          console.log(" coverImageUrl in handlePublish in blogPostEditor :", coverImageUrl);
+
+        } else if (postData.coverImageUrl === null) {
+          // Case 3: user removed image
+          coverImageUrl = null;
+        }
+         else {
+          // Case 1: unchanged image
+          // coverImageUrl = postData.coverPreview;
+          coverImageUrl = postData.coverImageUrl;
         }
 
         const reqPayload = {
@@ -125,6 +137,7 @@ const BlogPostEditor = (({ isEdit }) => {
           isDraft: isDraft ? true : false,
           generatedByAI: true,
         };
+        console.log("requestPayload in handlePublish of blogPostEditor-", reqPayload);
 
         const response = isEdit
           ? await axiosInstance.put(
@@ -132,6 +145,8 @@ const BlogPostEditor = (({ isEdit }) => {
               reqPayload
             )
           : await axiosInstance.post(API_PATHS.POSTS.CREATE, reqPayload);
+
+        console.log("response (update/create blog) in handlePublish of blogPostDetails -", response.data);
 
         if (response.data) {
           toast.success(
@@ -157,22 +172,31 @@ const BlogPostEditor = (({ isEdit }) => {
 
       if (response.data) {
         const data = response.data;
+        console.log("response by backend in fetchPostDetailsBySlug in blogPostEditor :", data);
+        // correct response
 
         setPostData((prevState) => ({
           ...prevState,
           id: data._id,
           title: data.title,
           content: data.content,
-          coverPreview: data.coverImageUrl,
+          // added ..check if needed or not
+          coverImageUrl: data?.coverImageUrl,  // keep full object (or null)
+          // coverPreview: data.coverImageUrl,
+          coverPreview: data?.coverImageUrl?.imageUrl || null,  // always string for <img>
           tags: data.tags,
           isDraft: data.isDraft,
           generatedByAI: data.generatedByAI,
         }));
+        console.log("postData in fetchPostDetailsBySlug  blogposteditor is :", postData);
       }
     }catch (error) {
       console.error("Error:", error);
     }
+    
   };
+
+  
 
   // Delete Blog Post
   const deletePost = async () => {
@@ -210,7 +234,9 @@ const BlogPostEditor = (({ isEdit }) => {
               <div className="flex items-center gap-3">
                 {isEdit && (
                   <button
-                    className="flex items-center gap-2.5 text-[13px] font-medium text-rose-500 bg-rose-50/60 rounded px-1.5 md:px-3 py-1 md:py-[3px] border border-rose-50 hover:border-rose-300 cursor-pointer hover:scale-[1.02] transition-all"
+                    className="flex items-center gap-2.5 text-[13px] font-medium text-rose-500
+                     bg-rose-50/60 rounded px-1.5 md:px-3 py-1 md:py-[3px] border border-rose-50
+                      hover:border-rose-300 cursor-pointer hover:scale-[1.02] transition-all"
                     disabled={loading}
                     onClick={() => setOpenDeleteAlert(true)}
                   >
@@ -220,7 +246,9 @@ const BlogPostEditor = (({ isEdit }) => {
                 )}
 
                 <button
-                  className="flex items-center gap-2.5 text-[13px] font-medium text-sky-500 bg-sky-50/60 rounded px-1.5 md:px-3 py-1 md:py-[3px] border border-sky-100 hover:border-sky-400 cursor-pointer hover:scale-[1.02] transition-all"
+                  className="flex items-center gap-2.5 text-[13px] font-medium text-sky-500
+                    bg-sky-50/60 rounded px-1.5 md:px-3 py-1 md:py-[3px] border border-sky-100
+                    hover:border-sky-400 cursor-pointer hover:scale-[1.02] transition-all"
                   disabled={loading}
                   onClick={() => handlePublish(true)}
                 >
@@ -229,7 +257,10 @@ const BlogPostEditor = (({ isEdit }) => {
                 </button>
 
                 <button
-                  className="flex items-center gap-2.5 text-[13px] font-medium text-sky-600 hover:text-white hover:bg-linear-to-r hover:from-sky-500 hover:to-indigo-500 rounded px-3 py-[3px] border border-sky-500 hover:border-sky-50 cursor-pointer transition-all"
+                  className="flex items-center gap-2.5 text-[13px] font-medium text-sky-600
+                   hover:text-white hover:bg-linear-to-r hover:from-sky-500 hover:to-indigo-500 
+                   rounded px-3 py-[3px] border border-sky-500 hover:border-sky-50 cursor-pointer 
+                   transition-all"
                   disabled={loading}
                   onClick={() => handlePublish(false)}
                 >
@@ -263,6 +294,7 @@ const BlogPostEditor = (({ isEdit }) => {
             <div className="mt-4">
               <CoverImageSelector
                 image={postData.coverImageUrl}
+                // initial m iss image m object store karana h 
                 setImage={(value) => handleValueChange("coverImageUrl", value)}
                 preview={postData.coverPreview}
                 setPreview={(value) => handleValueChange("coverPreview", value)}
@@ -324,7 +356,9 @@ const BlogPostEditor = (({ isEdit }) => {
               </h4>
             
               <button
-                className="bg-linear-to-r from-sky-500 to-cyan-400 text-[13px] font-smeibold text-white px-3 py-1 rounded hover:bg-black hover:text-white transitions-colors cursor-pointer hover:shadow-2xl hover:shadow-sky-200"
+                className="bg-linear-to-r from-sky-500 to-cyan-400 text-[13px] font-smeibold
+                 text-white px-3 py-1 rounded hover:bg-black hover:text-white transitions-colors 
+                 cursor-pointer hover:shadow-2xl hover:shadow-sky-200"
                 onClick={() =>
                   setOpenBlogPostGenForm({ open: true, data: null })
                 }

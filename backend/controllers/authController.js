@@ -46,7 +46,7 @@ const registerUser = async (req, res) => {
         email: user.email,
         profileImageUrl: user.profileImageUrl,
         bio: user.bio,
-        role,
+        role: user.role,
         token: generateToken(user._id),
     });
 

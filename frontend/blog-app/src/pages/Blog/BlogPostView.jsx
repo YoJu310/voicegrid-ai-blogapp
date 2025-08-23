@@ -159,7 +159,6 @@ const BlogPageView = () => {
 
 
   return (
-    // <div>blofpostview</div>
     <BlogLayout>
       {blogPostData && (
         <>
@@ -167,7 +166,8 @@ const BlogPageView = () => {
 
           <meta name="description" content={blogPostData.title} />
           <meta property="og:title" content={blogPostData.title} />
-          <meta property="og:image" content={blogPostData.coverImageUrl} />
+          {/* <meta property="og:image" content={blogPostData.coverImageUrl} /> */}
+          <meta property="og:image" content={blogPostData?.coverImageUrl?.imageUrl} />
           <meta property="og:type" content="article" />
 
           <div className="grid grid-cols-12 gap-8 relative">
@@ -187,7 +187,8 @@ const BlogPageView = () => {
                   {blogPostData.tags.slice(0, 3).map((tag, index) => (
                     <button
                       key={index}
-                      className="bg-sky-200/50 text-sky-800/80 text-xs font-medium px-3 py-0.5 rounded-full text-nowrap cursor-pointer"
+                      className="bg-sky-200/50 text-sky-800/80 text-xs font-medium px-3 py-0.5 
+                        rounded-full text-nowrap cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/tag/${tag}`);
@@ -201,7 +202,9 @@ const BlogPageView = () => {
                 <LuDot className="text-xl text-gray-400" />
 
                 <button
-                  className="flex items-center gap-2 bg-linear-to-r from-sky-500 to-cyan-400 text-xs text-white font-medium px-3 py-0.5 rounded-full text-nowrap cursor-pointer hover:scale-[1.02] transition-all my-1"
+                  className="flex items-center gap-2 bg-linear-to-r from-sky-500 to-cyan-400 text-xs
+                   text-white font-medium px-3 py-0.5 rounded-full text-nowrap cursor-pointer 
+                   hover:scale-[1.02] transition-all my-1"
                   onClick={generateBlogPostSummary}
                 >
                   <LuSparkles /> Summarize Post
@@ -209,8 +212,9 @@ const BlogPageView = () => {
               </div>
 
               <img
-                src={blogPostData.coverImageUrl || ""}
-                alt={blogPostData.title}
+                // src={blogPostData.coverImageUrl || ""}
+                src={blogPostData?.coverImageUrl?.imageUrl || ""}
+                alt={blogPostData?.title}
                 className="w-full h-96 object-cover mb-6 rounded-lg"
               />
 
@@ -218,15 +222,16 @@ const BlogPageView = () => {
                 <MarkdownContent
                   content={sanitizeMarkdown(blogPostData?.content || "")}
                 />
-                <SharePost title={blogPostData.title} />
+                <SharePost title={blogPostData?.title} />
 
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-lg font-semibold">Comments</h4>
 
                     <button
-                      className="flex items-center justify-center gap-3 bg-linear-to-r from-sky-500 to-cyan-400 
-                      text-xs font-semibold text-white px-5 py-2 rounded-full hover:bg-black hover:text-white cursor-pointer"
+                      className="flex items-center justify-center gap-3 bg-linear-to-r
+                        from-sky-500 to-cyan-400  text-xs font-semibold text-white px-5 py-2 
+                        rounded-full hover:bg-black hover:text-white cursor-pointer"
                       onClick={() => {
                         if (!user) {
                           setOpenAuthForm(true);
@@ -261,8 +266,9 @@ const BlogPageView = () => {
                         key={comment._id}
                         commentId={comment._id || null}
                         authorName={comment.author.name}
-                        authorPhoto={comment.author.profileImageUrl}
-                        content={comment.content}
+                        // authorPhoto={comment.author.profileImageUrl}
+                        authorPhoto={comment?.author?.profileImageUrl?.imageUrl}
+                        content={comment?.content}
                         updatedOn={
                           comment.updatedAt
                             ? moment(comment.updatedAt).format("Do MMM YYYY")
@@ -287,8 +293,8 @@ const BlogPageView = () => {
               </div>
 
               <LikeCommentButton
-                postId={blogPostData._id || ""}
-                likes={blogPostData.likes || 0}
+                postId={blogPostData?._id || ""}
+                likes={blogPostData?.likes || 0}
                 comments={comments?.length || 0}
               />
 

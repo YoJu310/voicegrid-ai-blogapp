@@ -40,7 +40,8 @@ const PostByTags = () => {
       <div> 
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-12 md:col-span-9">
-            <div className="flex items-center justify-center bg-linear-to-r from-sky-50 via-teal-50 to-cyan-100 h-32 p-6 rounded-lg ">
+            <div className="flex items-center justify-center bg-linear-to-r
+              from-sky-50 via-teal-50 to-cyan-100 h-32 p-6 rounded-lg ">
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-sky-900"># {tagName}</h3>
                 <p className="text-sm font-medium text-gray-700 mt-1">
@@ -55,8 +56,9 @@ const PostByTags = () => {
                   <BlogPostSummaryCard
                     key={item._id}
                     title={item.title}
-                    coverImageUrl={item.coverImageUrl}
-                    description={item.content}
+                    // coverImageUrl={item.coverImageUrl}
+                    coverImageUrl={item?.coverImageUrl?.imageUrl}
+                    description={item?.content}
                     tags={item.tags}
                     updatedOn={
                       item.updatedAt
@@ -64,7 +66,8 @@ const PostByTags = () => {
                         : "-"
                     }
                     authorName={item.author.name}
-                    authProfileImg={item.author.profileImageUrl}
+                    // authProfileImg={item.author.profileImageUrl}
+                    authProfileImg={item?.author?.profileImageUrl?.imageUrl}
                     onClick={() => handleClick(item)}
                   />
                 ))}
