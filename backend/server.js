@@ -27,6 +27,11 @@ connectDB();
 // Middleware
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", blogPostRoutes);
