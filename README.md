@@ -1,101 +1,149 @@
 # VoiceGrid - AI Blog App
 
-VoiceGrid is a modern full-stack AI-powered blog application that allows users to generate blog posts using the **Gemini API**, manage their content, and interact with a clean, responsive UI.  
+**VoiceGrid** is an AI-powered blogging platform built with the MERN stack, integrating the Gemini API for effortless content generation. It offers secure authentication, responsive design, and efficient content management to enhance creativity and user engagement.
 
-Live Demo: [https://voicegrid-ai-blogapp-frontend.vercel.app](https://voicegrid-ai-blogapp-frontend.vercel.app)  
-GitHub Repo: [YoJu310/voicegrid-ai-blogapp](https://github.com/YoJu310/voicegrid-ai-blogapp)  
+🚀 Live Demo: [https://voicegrid-ai-blogapp-frontend.vercel.app](https://voicegrid-ai-blogapp-frontend.vercel.app)  
+🌐 GitHub Repo: [YoJu310/voicegrid-ai-blogapp](https://github.com/YoJu310/voicegrid-ai-blogapp)  
 
 ---
 
 ## 🚀 Features
 
-- ✍️ AI-powered blog generation using **Gemini API**  
-- 🔐 User authentication and authorization  
-- 📄 Create, edit, delete, and view blog posts  
-- 🎨 Modern responsive UI (React + Tailwind)  
-- 🌐 RESTful API with Node.js & Express.js  
-- 📦 MongoDB integration for storing blog content  
-- ☁️ Deployment-ready (Frontend on Vercel, Backend on Render/Local)  
+- **MERN Stack**: Utilizes MongoDB, Express.js, React, and Node.js for building a scalable and maintainable web application.
+- **Global State Management**: Integrated **Context API** for efficient global data management, ensuring smooth and consistent state across components.
+- **Authentication**: Secure Sign Up & Login using JWT and bcrypt.
+- **Blog CRUD**: Create, edit, delete posts with optional cover image and slug-based URLs. 
+- **AI Blog Generator**: Generate markdown-formatted blogs using AI by entering a title. 
+- **Markdown Support**: Write and render blogs in markdown with live syntax highlighting. 
+- **Tag Filtering**: Categorize and filter posts by tags like React, Node, etc.
+- **Admin Dashboard**: View and manage blog posts easily.
+- **Post View Counter**: Track how many times each blog has been viewed.
+- **Comments Section**: Readers can leave feedback or thoughts.
+- **Like/Clap Button**: Engage readers and track the popularity of posts.
+- **Draft & Publish Toggle**: Save as draft or publish instantly.
+- **Search Functionality**: Search blogs by title or content in real-time.
+- **Responsive UI**: Optimized for both desktop and mobile experiences.
 
----
 
 ## 🛠️ Tech Stack
 
-**Frontend:** React, Tailwind CSS, Axios, React Router DOM  
-**Backend:** Node.js, Express, MongoDB (Mongoose)  
-**AI Integration:** Gemini API  
-**Authentication:** JWT-based  
-**Deployment:** Vercel (frontend), Render/Local (backend)  
+- **Frontend**: React, Tailwind CSS, Axios, React Router DOM  
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **AI Integration**: Gemini API 
+- **Image Storage**: Cloudinary
+- **Security**: bcrypt (password encryption)
+- **Deployment**: Vercel (frontend), Render/Local (backend)
+   
 
----
+## Test Users
 
-## 📸 Screenshots
+- **USER**
+  - Email: user@example.com
+  - Password: user12345
 
-| Homepage | Blog Editor | AI-Generated Blog |
-|----------|-------------|------------------|
-| ![Homepage](screenshots/home.png) | ![Blog Editor](screenshots/editor.png) | ![AI Blog](screenshots/blog.png) |
+- **ADMIN**
+  - Email: admin@example.com
+  - Password: admin12345
 
-*(Add your screenshots inside a `screenshots/` folder and update the paths above.)*
 
----
+## ⚙️ Setup Instructions
 
-## ⚙️ Getting Started
+### Prerequisites
 
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/YoJu310/voicegrid-ai-blogapp.git
-cd voicegrid-ai-blogapp
+Make sure you have the following installed:
 
-2️⃣ Install dependencies
+- Node.js (v14.x or above)
+- MongoDB (local instance or Atlas)
+- Cloudinary account for image storage
 
-Install dependencies for both frontend and backend:
+### Installation
 
-# Frontend
-cd frontend
-npm install
+1. Clone the repository:
 
-# Backend
-cd ../backend
-npm install
+   ```bash
+   git clone https://github.com/YoJu310/voicegrid-ai-blogapp.git
+   cd voicegrid-ai-blogapp
+   ```
 
-3️⃣ Environment Variables
-Backend (/backend/.env)
+2. Install dependencies for both frontend and backend:
 
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-GEMINI_API_KEY=your_gemini_api_key
-CLIENT_URL=http://localhost:5173
+   ```bash
+   cd .frontend/blog-app
+   npm install
 
-Frontend (/frontend/.env)
-VITE_API_URL=http://localhost:4000/api
+   cd ../backend
+   npm install
+   ```
 
-4️⃣ Run the App
+3. Set up environment variables:
 
-Start both frontend and backend in separate terminals:
-# In /frontend
-npm run dev
+   Create a `.env` file in the `/frontend` directory and include the following:
 
-# In /backend
-npm run dev
+   ```env
+   VITE_API_URL = http://localhost:8000
+   ```
+   
+   Create a `.env` file in the `/backend` directory and include the following:
 
-📌 Roadmap
+   ```env
+   PORT = 8000
+   MONGO_URI = YOUR_MONGODB_BASE_URI
+   JWT_SECRET = RANDOM_STRING
+   ADMIN_ACCESS_TOKEN = RANDOM_STRING
+   GEMINI_API_KEY = YOUR_GEMINI_API_KEY
+   CLOUDINARY_CLOUD_NAME = YOUR_CLOUD_NAME
+   CLOUDINARY_API_KEY = YOUR_CLOUDINARY_API_KEY 
+   CLOUDINARY_API_SECRET = YOUR_CLOUDINARY_SECRET_KEY 
+   ```
 
- Add rich text editor with Markdown support
+4. Start the development servers:
 
- Implement blog categories & tags
+   ```bash
+   # Start the backend server
+   cd backend
+   npm run dev
 
- Enable user profiles with bio & avatar
+   # Start the frontend server
+   cd .frontend/blog-app
+   npm run dev
+   ```
 
- Add likes & comments system
+5. Open your browser and visit `http://localhost:5173` to view the app.
 
- Optimize SEO for AI blogs
+## 📖 Usage
 
-📜 License
+1. **Sign Up / Log In**  
+   Create an account or log in to access the platform.
 
-This project is licensed under the MIT License – see the LICENSE
- file for details.
+2. **Create a Blog Post**  
+   - Navigate to the blog editor.  
+   - Enter a topic or prompt.  
+   - Use the **AI Generate** option to let the Gemini API create content, or write manually.  
 
-👩‍💻 Author
+3. **Edit & Format**  
+   Customize your blog post, add formatting, and review AI suggestions.
+
+4. **Publish**  
+   Save your draft or publish it instantly. Published blogs will appear on the homepage feed.
+
+5. **Manage Content**  
+   - View all your blogs in the dashboard.  
+   - Edit or delete posts anytime.  
+
+6. **Read Blogs**  
+   Explore AI-generated and user-created blogs, with a clean, responsive UI.
+
+ 
+## Contributions
+
+Feel free to fork this repository and submit pull requests. All contributions are welcome!
+
+
+## 👩‍💻 Author
 
 Developed by Yojna Singh
-🔗 GitHub Profile
+🔗 [GitHub](https://github.com/YoJu310) 
+
+
+**VoiceGrid** — Where creativity meets AI for effortless blogging.
